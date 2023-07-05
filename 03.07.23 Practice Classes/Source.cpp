@@ -1,122 +1,229 @@
-/*
-Практика
-Создать базовые классы для растений и плодов
-Заложить в классы плодов и растений:
+п»ї/*
+РџСЂР°РєС‚РёРєР°
+РЎРѕР·РґР°С‚СЊ Р±Р°Р·РѕРІС‹Рµ РєР»Р°СЃСЃС‹ РґР»СЏ СЂР°СЃС‚РµРЅРёР№ Рё РїР»РѕРґРѕРІ
+Р—Р°Р»РѕР¶РёС‚СЊ РІ РєР»Р°СЃСЃС‹ РїР»РѕРґРѕРІ Рё СЂР°СЃС‚РµРЅРёР№:
 
-Класс Плод - Возможность узнавать свое название(задается при создании) (Наследники ЯблокиБ Груши, и тд) Harvest
-Узнавать свой вес и цвет (так же можно создать при создании)
+РљР»Р°СЃСЃ РџР»РѕРґ - Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ СѓР·РЅР°РІР°С‚СЊ СЃРІРѕРµ РЅР°Р·РІР°РЅРёРµ(Р·Р°РґР°РµС‚СЃСЏ РїСЂРё СЃРѕР·РґР°РЅРёРё) (РќР°СЃР»РµРґРЅРёРєРё РЇР±Р»РѕРєРёР‘ Р“СЂСѓС€Рё, Рё С‚Рґ) Harvest
+РЈР·РЅР°РІР°С‚СЊ СЃРІРѕР№ РІРµСЃ Рё С†РІРµС‚ (С‚Р°Рє Р¶Рµ РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ РїСЂРё СЃРѕР·РґР°РЅРёРё)
 
 
-Класс Растение Знать  какой у него размер Большой маленький(Наследники Деревья Ели Яблоня Вишня) ПЛЭНТ Plant
-Знать Размер  Большой , Маленький  Средний 
-Цвет и сколько на нем может быть плодов.
+РљР»Р°СЃСЃ Р Р°СЃС‚РµРЅРёРµ Р—РЅР°С‚СЊ  РєР°РєРѕР№ Сѓ РЅРµРіРѕ СЂР°Р·РјРµСЂ Р‘РѕР»СЊС€РѕР№ РјР°Р»РµРЅСЊРєРёР№(РќР°СЃР»РµРґРЅРёРєРё Р”РµСЂРµРІСЊСЏ Р•Р»Рё РЇР±Р»РѕРЅСЏ Р’РёС€РЅСЏ) РџР›Р­РќРў Plant
+Р—РЅР°С‚СЊ Р Р°Р·РјРµСЂ  Р‘РѕР»СЊС€РѕР№ , РњР°Р»РµРЅСЊРєРёР№  РЎСЂРµРґРЅРёР№ 
+Р¦РІРµС‚ Рё СЃРєРѕР»СЊРєРѕ РЅР° РЅРµРј РјРѕР¶РµС‚ Р±С‹С‚СЊ РїР»РѕРґРѕРІ.
+
+Р”РѕРїРѕР»РЅРёС‚СЊ 05.07.23.
+РЎРѕР·РґР°С‚СЊ РєРѕРЅС‚РµР№РЅРµСЂС‹ РЅР°СЃР»РµРґРЅРёРєРѕРІ РґР»СЏ РєР»Р°СЃСЃР° Р Р°СЃС‚РµРЅРёРµ
+РџСЂРёРјРµСЂ( РЇР±Р»РѕРЅСЏ РіСЂСѓС€Р° РњР°Р»РёРЅР° РЇР¶РµРІРёРєР°)
+РєРѕС‚РѕСЂС‹Рµ СЃРІСЏР·Р°РЅС‹ СЃРѕ СЃРІРѕРёРјРё РЅР°СЃР»РµРґРЅРёРєР°РјРё РєР»Р°СЃСЃР° РїР»РѕРґ
+Рё РєРѕС‚РѕСЂС‹Рµ РІРѕР·РІСЂР°С‰Р°СЋС‚ РїР»РѕРґС‹ РїРѕРєР° РѕРЅРё РµСЃС‚СЊ РЅР° РґРµСЂРµРІРµ
+С‡РµСЂРµР· РІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ РјРµС‚РѕРґ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°
 
 */
 
 #include<iostream>
-
-
-
+#include<string>
+class Apple;
+class AppleTree;
+class Harvest;
 class Plant
 {
 private:
 	std::string _nameTree;
 	float _heigthTree;
-	std::string _type;// Плодовое или нет
-public:
-	Plant(const std::string& nameTree, float heigthTree, const std::string& type) : _nameTree{nameTree},
-		_heigthTree{ heigthTree }, _type{type} { }
-		
+	std::string _type;// Р‘РѕР»СЊС€РѕР№Рµ РњР°Р»РµРЅСЊРєРѕРµ РЎСЂРµРґРЅРµРµ
+	std::string _color;
+	int _numFruits;
 
-	~Plant()
+public:
+
+	int fruitCount = 0;
+
+	Plant(const std::string& nameTree, float heigthTree, const std::string& type, const std::string& color, int numFruits) : _nameTree{ nameTree },
+		_heigthTree{ heigthTree }, _type{ type }, _color{ color }, _numFruits{ numFruits } {  fruitCount = _numFruits; }
+		
+	 
+
+	virtual void ShowPlant() const
+	{
+		std::cout << "NameTree: " << _nameTree << std::endl;
+		std::cout << "Heigth Tree: " << _heigthTree << std::endl;
+		std::cout << "Tree type: " << _type << std::endl; // Р‘РѕР»СЊС€РѕР№Рµ РњР°Р»РµРЅСЊРєРѕРµ РЎСЂРµРґРЅРµРµ
+		std::cout << "Color: " << _color << std::endl;
+		std::cout << "Numbers of Fruits: " << _numFruits << std::endl;
+	}
+
+	virtual ~Plant()
 	{
 		std::cout << this << " Destroid Plant \n";		
 	}
 
+	virtual Harvest* harvestFruit() = 0;
 };
+
 class Harvest
 {
 private:
 	std::string _name;
-	float _weight;
-	std::string _color;
+	float _weigth;
+	std::string _colorHar;
 public:
-	Harvest(const std::string name, float weight, const std::string color ) : _name{ name },
-		_weight{ weight },_color{ color }{ }
+	
+	Harvest(const std::string name, float weigth, const std::string colorHar) : _name{ name },
+		_weigth{ weigth }, _colorHar{ colorHar }
+	{ 
+		std::cout << this << " Harvest object created\n";
+	}
 
-	~Harvest()
+	virtual ~Harvest() 
 	{	
 		std::cout << this << " Destroid Plant \n";	
 	}
-};
 
-class Spruce : public Plant // Ель не плодоносное
-{
-public:
-	Spruce(const std::string nameTree,float heigthTree, const std::string type) 
-		: Plant(nameTree, heigthTree, type)
-	{ 
-		std::cout << this << "Spruce object created\n";
-	}
-
-};
-class Pine : public Plant // Сосна не плодоносное
-{
-public:
-	Pine(const std::string nameTree, float heigthTree, const std::string type)
-		: Plant(nameTree, heigthTree, type)
+	virtual	void ShowHarvest() const
 	{
-		std::cout << this << "Pine object created\n";
+		std::cout << "Fruit name: " << _name << std::endl;
+		std::cout << "Heigth Tree: " << _weigth << std::endl;		
+		std::cout << "Color: " << _colorHar << std::endl;		
 	}
 
+	
 };
-class CherryTree : public Plant
-{
-public:
-	CherryTree(const std::string nameTree, float heigthTree, const std::string type)
-		: Plant(nameTree, heigthTree, type)
-	{
-		std::cout << this << "CherryTree object created\n";
-	}
-
-};
-class AppleTree : public Plant
-{
-public:
-	AppleTree(const std::string nameTree, float heigthTree, const std::string type)
-		: Plant(nameTree, heigthTree, type)
-	{
-		std::cout << this << "AppleTree object created\n";
-	}
-
-};
-class PearTree : public Plant
-{
-public:
-	PearTree(const std::string nameTree, float heigthTree, const std::string type)
-		: Plant(nameTree, heigthTree, type)
-	{
-		std::cout << this << "PearTree object created\n";
-	}
-};
-
 
 class Apple : public Harvest
 {
 public:
 
+	Apple(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	{
+		std::cout << this << " Apple object created\n";
+	}
+
+	~Apple() override
+	{
+		std::cout << this << " Destroid Apple \n";
+	}
+};
+
+class Spruce : public Plant //
+{
+public:
+	Spruce(const std::string nameTree,float heigthTree, const std::string type, const std::string& color, int numFruits)
+		: Plant(nameTree, heigthTree, type, color, numFruits)
+	{ 
+		std::cout << this << "Spruce object created\n";
+	}
+	~Spruce() override
+	{
+		std::cout << this << " Destroid Plant \n";
+	}
+};
+class Pine : public Plant // РЎРѕСЃРЅР° РЅРµ РїР»РѕРґРѕРЅРѕСЃРЅРѕРµ
+{
+public:
+	Pine(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
+		: Plant(nameTree, heigthTree, type, color, numFruits)
+	{
+		std::cout << this << " Pine object created\n";
+	}
+	~Pine() override
+	{
+		std::cout << this << " Destroid Pine \n";
+	}
+};
+class CherryTree : public Plant
+{
+public:
+	CherryTree(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
+		: Plant(nameTree, heigthTree, type, color, numFruits)
+	{
+		std::cout << this << " CherryTree object created\n";
+	}
+	~CherryTree() override
+	{
+		std::cout << this << " Destroid CherryTree \n";
+	}
+};
+class AppleTree : public Plant
+{
+public:
+	AppleTree(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
+		: Plant(nameTree, heigthTree, type, color, numFruits)
+	{
+		std::cout << this << " AppleTree object created\n";
+	}
+	~AppleTree() override
+	{
+		std::cout << this << " Destroid AppleTree \n";
+	}
+
+	void ShowPlant()const override
+	{
+		Plant::ShowPlant();
+		std::cout << " Fruit count: " << fruitCount << std::endl;
+	}
+
+	Harvest* harvestFruit()  override
+	{
+		--fruitCount;
+		return new Apple("Apple", 20.32, "Green");
+	}
+};
+class PearTree : public Plant
+{
+public:
+	PearTree(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
+		: Plant(nameTree, heigthTree, type, color, numFruits)
+	{
+		std::cout << this << "PearTree object created\n";
+	}
+
+	~PearTree() override
+	{
+		std::cout << this << " Destroid PearTree \n";
+	}
 
 };
+
+
 class Pear : public Harvest
 {
 public:
+	Pear(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	{
+		std::cout << this << " Pear object created\n";
+	}
+
+	~Pear() override
+	{
+		std::cout << this << " Destroid Pear \n";
+	}
 
 };
 class Cherry : public Harvest
 {
 public:
+	Cherry(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	{
+		std::cout << this << " Cherry object created\n";
+	}
+	~Cherry() override
+	{
+		std::cout << this << " Destroid Cherry \n";
+	}
 
 };
 
 
 
+int main()
+{
+	AppleTree tree("Apple Tree", 50," Average", "Green", 20);
+	tree.ShowPlant();
+
+	Harvest* apple = tree.harvestFruit();
+	apple->ShowHarvest();
+
+	delete apple;
+
+	return{};
+}
