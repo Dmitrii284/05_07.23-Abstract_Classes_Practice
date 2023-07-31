@@ -22,9 +22,13 @@
 
 #include<iostream>
 #include<string>
+#include<vector>
+#include<conio.h>
 class Apple;
 class AppleTree;
 class Harvest;
+class Backpack;
+
 class Plant
 {
 private:
@@ -58,6 +62,7 @@ public:
 	}
 
 	virtual Harvest* harvestFruit() = 0;
+	virtual std::shared_ptr<Harvest> harvestFruit1() = 0;
 };
 
 class Harvest
@@ -178,6 +183,12 @@ public:
 		--fruitCount;
 		return new Cherry("Cherry", 10.7, "Bard");
 	}
+	std::shared_ptr<Harvest> harvestFruit1()  override
+	{
+		--fruitCount;
+		return std::make_shared<Pear>("Cherry", 12.5, "Red-Yellow");
+	}
+	
 };
 class AppleTree : public Plant
 {
@@ -203,6 +214,11 @@ public:
 		--fruitCount;
 		return new Apple("Apple", 20.32, "Green");
 	}
+	std::shared_ptr<Harvest> harvestFruit1()  override
+	{
+		--fruitCount;
+		return std::make_shared<Pear>("Apple", 10.2, "Red - Green");
+	}
 };
 class PearTree : public Plant
 {
@@ -217,14 +233,88 @@ public:
 	{
 		std::cout << this << " Destroid PearTree \n";
 	}
+	void ShowPlant()const override
+	{
+		Plant::ShowPlant();
+		std::cout << " Fruit count: " << fruitCount << std::endl;
+	}
 	Harvest* harvestFruit()  override
 	{
 		--fruitCount;
 		return new Pear("Pear", 18.8, "Yellow");
 	}
-
+	std::shared_ptr<Harvest> harvestFruit1()  override
+	{
+		--fruitCount;
+		return std::make_shared<Pear>("Pear", 30, "Yellow - White");
+	}
 };
 
+//class Backpack // Создали класс Рюкзак
+//{
+//private:
+//	std::vector<std::shared_ptr<Harvest>> _backpack;// Контейнер для плодов
+//public:
+//	void PushBackpack(const std::shared_ptr<Harvest>& fruit) // Создаем метод который кладет в контейнер плоды
+//	{// Принимает в себя константный умный указатель на объект класса Harvest по ссылке &
+//		//_backpack.push_back(std::move(fruit)); // Так не делаем потому что он из main() будет перемещать, а в main() будет пустой аргумент тоесть он будет указывать на NALL
+//		_backpack.push_back(fruit); // Каладем в контейнер аргумент функции PushBackpack
+//	}
+//
+//	//Apple pear apple grape potato
+//	//grape
+//
+//	void Show() // Функцию Show для показа объектов контейнера(рюкзака)
+//	{
+//		std::vector<std::shared_ptr<Harvest>>::iterator fruit = _backpack.begin();// Создаем итератор который указывает на вектор содержащий в себе
+//		//умные казатели на объекты класса Harvest
+//		std::vector<std::shared_ptr<Harvest>>::iterator deleted = _backpack.end(); // Создаем невалидный итератор для удаляемого значения из вектора
+//
+//		char action{ '0' };// Создаем переменную в которой храниться ввод от пользователя
+//		int count{ 0 };// Создаем индекс элемента накотором стоим
+//
+//		while (action != '4')
+//		{
+//			system("cls");
+//			(*fruit)->ShowHarvest();
+//			std::cout << "\nNumber of fruits : " << _backpack.size() << std::endl;
+//			std::cout << "\nFruit " << count + 1 << '/' << _backpack.size() << ' ' << std::endl;
+//			std::cout << "\n\n";
+//			std::cout << "'1' - previous fruit in the backpack" << std::endl;
+//			std::cout << "'2' - next fruit in the backpack" << std::endl;
+//			std::cout << "'3' - take fruit" << std::endl;
+//			std::cout << "'4' - exit" << std::endl;
+//
+//			action = _getch(); // _getch() - Ждет ввода от пользователя и кладет его в action если получила ввод
+//
+//			switch (action)
+//			{
+//			case '1':
+//				if (fruit != _backpack.begin())// Проверка выхода итератора за пределы вектора
+//				{// если итератор не равен _backpack.begin() Началу то значит слева есть объекты которые можем показать
+//					--fruit;// Здесь двигаемся по вектору влево относительно нашего итератра
+//					count--; // Счетчик индекса идет в минус
+//				}
+//				break;
+//			case '2':
+//				if (fruit != _backpack.end() - 1)// Если итерватор не  дошел до конца Значит справа есть элементы которые можем показать 
+//				{
+//					++fruit;// Показывает с права элементы от итератора
+//					count++;// Счетчик индекса идет в +
+//				}
+//				break;
+//			case '3':
+//				deleted = fruit;// Приравниваем итераторы  Чтобы в дальнейшем значение на которое указывает итератор deleted удалить из вектора
+//				break;
+//			default:
+//				break;
+//			}
+//		}
+//
+//		if (deleted != _backpack.end()) // Если в deleted есть валидное значение то мы его удаляем
+//			_backpack.erase(deleted);// тут просто удаляем
+//	}
+//};
 
 
 
@@ -233,17 +323,34 @@ public:
 
 int main()
 {
-	AppleTree tree("Apple Tree", 10," Average", "Green", 20);
+	AppleTree tree("Apple Tree", 10,"Average", "Green", 20);
 	tree.ShowPlant();
 	Harvest* apple = tree.harvestFruit();
 	apple->ShowHarvest();
-	delete apple;
+	
 
-	CherryTree tree1("Cherry Tree", 2, " Average", "Green", 1020);
+	CherryTree tree1("Cherry Tree", 2, "Low", "Blake - Green", 1020);
 	tree1.ShowPlant();
 	Harvest* cherry = tree1.harvestFruit();
 	cherry->ShowHarvest();
-	delete cherry;
 
+	PearTree tree2("Pear Tree", 8, "Average", "Green", 80);
+	tree2.ShowPlant();
+	Harvest* pearP = tree2.harvestFruit();
+	pearP->ShowHarvest();
+
+	/*Backpack backPack;
+	std::shared_ptr<Pear> pear = std::make_shared<Pear>("Pear", 150.65, "Yellow");
+	std::shared_ptr<Pear> pear1 = std::make_shared<Pear>("Pear", 100.8, "RED");
+	std::shared_ptr<Pear> pear2 = std::make_shared<Pear>("Pear", 180.2, "Redand Yellow");
+	backPack.PushBackpack(pear);
+	backPack.PushBackpack(pear1);
+	backPack.PushBackpack(pear2);
+	
+	backPack.Show();*/
+
+	delete cherry;
+	delete apple;
+	delete pearP;
 	return{};
 }
