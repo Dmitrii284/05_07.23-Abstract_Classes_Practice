@@ -88,7 +88,19 @@ public:
 
 	
 };
+class Cherry : public Harvest
+{
+public:
+	Cherry(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	{
+		std::cout << this << " Cherry object created\n";
+	}
+	~Cherry() override
+	{
+		std::cout << this << " Destroid Cherry \n";
+	}
 
+};
 class Apple : public Harvest
 {
 public:
@@ -103,33 +115,47 @@ public:
 		std::cout << this << " Destroid Apple \n";
 	}
 };
+class Pear : public Harvest
+{
+public:
+	Pear(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	{
+		std::cout << this << " Pear object created\n";
+	}
 
-class Spruce : public Plant //
-{
-public:
-	Spruce(const std::string nameTree,float heigthTree, const std::string type, const std::string& color, int numFruits)
-		: Plant(nameTree, heigthTree, type, color, numFruits)
-	{ 
-		std::cout << this << "Spruce object created\n";
-	}
-	~Spruce() override
+	~Pear() override
 	{
-		std::cout << this << " Destroid Plant \n";
+		std::cout << this << " Destroid Pear \n";
 	}
+
 };
-class Pine : public Plant // Сосна не плодоносное
-{
-public:
-	Pine(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
-		: Plant(nameTree, heigthTree, type, color, numFruits)
-	{
-		std::cout << this << " Pine object created\n";
-	}
-	~Pine() override
-	{
-		std::cout << this << " Destroid Pine \n";
-	}
-};
+
+//class Spruce : public Plant //
+//{
+//public:
+//	Spruce(const std::string nameTree,float heigthTree, const std::string type, const std::string& color, int numFruits)
+//		: Plant(nameTree, heigthTree, type, color, numFruits)
+//	{ 
+//		std::cout << this << "Spruce object created\n";
+//	}
+//	~Spruce() override
+//	{
+//		std::cout << this << " Destroid Plant \n";
+//	}
+//};
+//class Pine : public Plant // Сосна не плодоносное
+//{
+//public:
+//	Pine(const std::string nameTree, float heigthTree, const std::string type, const std::string& color, int numFruits)
+//		: Plant(nameTree, heigthTree, type, color, numFruits)
+//	{
+//		std::cout << this << " Pine object created\n";
+//	}
+//	~Pine() override
+//	{
+//		std::cout << this << " Destroid Pine \n";
+//	}
+//};
 class CherryTree : public Plant
 {
 public:
@@ -141,6 +167,16 @@ public:
 	~CherryTree() override
 	{
 		std::cout << this << " Destroid CherryTree \n";
+	}
+	void ShowPlant()const override
+	{
+		Plant::ShowPlant();
+		std::cout << " Fruit count: " << fruitCount << std::endl;
+	}
+	Harvest* harvestFruit()  override
+	{
+		--fruitCount;
+		return new Cherry("Cherry", 10.7, "Bard");
 	}
 };
 class AppleTree : public Plant
@@ -181,49 +217,33 @@ public:
 	{
 		std::cout << this << " Destroid PearTree \n";
 	}
-
-};
-
-
-class Pear : public Harvest
-{
-public:
-	Pear(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
+	Harvest* harvestFruit()  override
 	{
-		std::cout << this << " Pear object created\n";
-	}
-
-	~Pear() override
-	{
-		std::cout << this << " Destroid Pear \n";
+		--fruitCount;
+		return new Pear("Pear", 18.8, "Yellow");
 	}
 
 };
-class Cherry : public Harvest
-{
-public:
-	Cherry(const std::string name, float weigth, const std::string colorHar) : Harvest(name, weigth, colorHar)
-	{
-		std::cout << this << " Cherry object created\n";
-	}
-	~Cherry() override
-	{
-		std::cout << this << " Destroid Cherry \n";
-	}
 
-};
+
+
+
 
 
 
 int main()
 {
-	AppleTree tree("Apple Tree", 50," Average", "Green", 20);
+	AppleTree tree("Apple Tree", 10," Average", "Green", 20);
 	tree.ShowPlant();
-
 	Harvest* apple = tree.harvestFruit();
 	apple->ShowHarvest();
-
 	delete apple;
+
+	CherryTree tree1("Cherry Tree", 2, " Average", "Green", 1020);
+	tree1.ShowPlant();
+	Harvest* cherry = tree1.harvestFruit();
+	cherry->ShowHarvest();
+	delete cherry;
 
 	return{};
 }
